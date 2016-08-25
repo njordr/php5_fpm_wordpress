@@ -1,2 +1,2 @@
-# php5_fpm_wordpress
-php 5 fpm mode for wordpress
+# php7_fpm_wordpress
+php7 fpm mode for wordpress
