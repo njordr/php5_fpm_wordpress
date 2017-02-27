@@ -18,6 +18,8 @@ RUN apt-get update && apt-get install -y \
         libsasl2-dev \
         pkg-config \
         libcurl4-openssl-dev \
+        libjpeg-dev \
+        libpng12-dev \
     --no-install-recommends && rm -r /var/lib/apt/lists/*
 
 ENV PHP_INI_DIR /usr/local/etc/php
@@ -48,6 +50,7 @@ RUN cd /usr/src \
         --with-mysql \
         --with-mysqli \
          --with-pdo-mysql \
+        --with-gd \
         \
         --with-curl \
         --with-libedit \
@@ -63,6 +66,10 @@ RUN cd /usr/src \
     && make clean \
     && cd .. \
     && rm -Rf php
+
+RUN cd /tmp \
+    && curl -sS https://getcomposer.org/installer | php \
+    && mv composer.phar /usr/local/bin/composer
 
 WORKDIR /var/www/html
 
