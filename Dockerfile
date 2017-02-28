@@ -21,6 +21,8 @@ RUN apt-get update && apt-get install -y \
         libjpeg-dev \
         libpng12-dev \
         git \
+        unzip \
+        libmcrypt-dev \
     --no-install-recommends && rm -r /var/lib/apt/lists/*
 
 ENV PHP_INI_DIR /usr/local/etc/php
@@ -47,6 +49,7 @@ RUN cd /usr/src \
         \
         --enable-ftp \
         --enable-mbstring \
+        --with-mcrypt \
         --enable-mysqlnd \
         --with-mysql \
         --with-mysqli \
@@ -110,10 +113,11 @@ RUN set -ex \
         echo 'listen = [::]:9000'; \
     } | tee php-fpm.d/zz-docker.conf
 
-RUN apt-get update && apt-get install -y \
-        unzip \
-    --no-install-recommends && rm -r /var/lib/apt/lists/*
-
+RUN curl -sL https://deb.nodesource.com/setup_6.x -o nodesource_setup.sh \
+    && bash nodesource_setup.sh \
+    && apt-get update && apt-get install -y \
+        nodejs \
+        --no-install-recommends && rm -r /var/lib/apt/lists/*
 
 EXPOSE 9000
 CMD ["php-fpm"]
