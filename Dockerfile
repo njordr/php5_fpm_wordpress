@@ -20,6 +20,7 @@ RUN apt-get update && apt-get install -y \
         libcurl4-openssl-dev \
         libjpeg-dev \
         libpng12-dev \
+        git \
     --no-install-recommends && rm -r /var/lib/apt/lists/*
 
 ENV PHP_INI_DIR /usr/local/etc/php
