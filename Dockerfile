@@ -110,6 +110,11 @@ RUN set -ex \
         echo 'listen = [::]:9000'; \
     } | tee php-fpm.d/zz-docker.conf
 
+RUN apt-get update && apt-get install -y \
+        unzip \
+    --no-install-recommends && rm -r /var/lib/apt/lists/*
+
+
 EXPOSE 9000
 CMD ["php-fpm"]
 
